@@ -1,0 +1,2 @@
+# Applied-Machine-Learning-Projects-Regression-Decision-Trees-Neural-Networks-LLM-Fine-Tuning
+ Developed four hands-on machine learning and deep learning projects covering:   Pune House Price Prediction using regression techniques  ,Heart Disease Diagnosis via decision trees and pruning , Fashion Image Classification with neural networks (Fashion MNIST)  and LLM Tuning for better inference through hyperparameter optimization
