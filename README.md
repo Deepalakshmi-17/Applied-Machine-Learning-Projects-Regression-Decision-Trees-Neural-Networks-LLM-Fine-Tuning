@@ -1,8 +1,4 @@
-### Task 1 - House Price Prediction using Linear Regression
-
-# This task predicts property prices in Pune using basic linear regression.
-# Key steps include data cleaning, handling missing values, encoding categorical variables,
-# and training a regression model. Results were evaluated using R² and RMSE.
+# Task 1 - House Price Prediction using Linear Regression
 
 import pandas as pd
 import numpy as np
@@ -57,20 +53,14 @@ plt.title("Actual vs Predicted House Prices in Pune")
 plt.grid(True)
 plt.show()
 
-
-### Task 2 - Heart Disease Classification using Decision Trees
-
-# Classification of heart disease risk using the UCI dataset.
-# Includes preprocessing, encoding, training a decision tree, and evaluating the model
-# using accuracy score, classification report, and confusion matrix.
+# Task 2 - Heart Disease Classification using Decision Trees
 
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 column_names = [
     'age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg',
-    'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal', 'target'
-]
+    'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal', 'target']
 
 df = pd.read_csv('processed.cleveland.data', names=column_names)
 df.replace('?', pd.NA, inplace=True)
@@ -104,11 +94,7 @@ plt.ylabel("Actual")
 plt.title("Confusion Matrix")
 plt.show()
 
-
-### Task 3 - Image Classification using Neural Networks (Fashion MNIST)
-
-# This task builds and trains a neural network to classify fashion items from images.
-# Includes preprocessing, model building, training, and performance visualization.
+# Task 3 - Image Classification using Neural Networks (Fashion MNIST)
 
 import tensorflow as tf
 from tensorflow.keras import layers, models
@@ -156,12 +142,7 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
-
-### Task 4 - Improving a Failing Transformer Language Model
-
-# This task improves a failing transformer-based language model.
-# Adjustments were made to the architecture and hyperparameters to stabilize training
-# and produce more coherent text outputs.
+# Task 4 - Improving a Failing Language Model (Transformer)
 
 import torch
 import torch.nn as nn
@@ -230,7 +211,7 @@ for iter in range(max_iters):
         with torch.no_grad():
             xb, yb = get_batch('val')
             _, val_loss = model(xb, yb)
-        print(f"Step {iter}: val loss = {val_loss.item():.4f}")
+            print(f"Step {iter}: val loss = {val_loss.item():.4f}")
         model.train()
 
     xb, yb = get_batch('train')
@@ -242,4 +223,3 @@ for iter in range(max_iters):
 context = torch.zeros((1, 1), dtype=torch.long, device=device)
 generated = model.generate(context, max_new_tokens=200)
 print(decode(generated[0].tolist()))
-
