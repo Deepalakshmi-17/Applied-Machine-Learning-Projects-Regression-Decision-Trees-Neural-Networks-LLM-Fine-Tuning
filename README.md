@@ -1,13 +1,13 @@
-Task 1 - House Price Prediction using Linear Regression:
+### Task 1 - House Price Prediction using Linear Regression
 
-This task involves predicting property prices in Pune using basic linear regression. The dataset included features like total square footage, number of bedrooms/bathrooms, and location. The model pipeline included data cleaning (e.g., handling missing values, feature extraction like bhk), encoding categorical variables, and fitting a regression model. The final model achieved a good R² score and low RMSE, visualized with an actual vs predicted scatter plot.
+# This task predicts property prices in Pune using basic linear regression.
+# Key steps include data cleaning, handling missing values, encoding categorical variables,
+# and training a regression model. Results were evaluated using R² and RMSE.
 
-python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
@@ -45,11 +45,11 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
 r2 = r2_score(y_test, y_pred)
-rmse = mean_squared_error(y_test, y_pred) ** 0.5
+rmse = mean_squared_error(y_test, y_pred, squared=False)
 print("R² Score:", r2)
 print("RMSE:", rmse)
 
-plt.figure(figsize=(6,4))
+plt.figure(figsize=(6, 4))
 plt.scatter(y_test, y_pred, alpha=0.7, color='teal')
 plt.xlabel("Actual Price (Lakhs)")
 plt.ylabel("Predicted Price (Lakhs)")
@@ -58,17 +58,14 @@ plt.grid(True)
 plt.show()
 
 
-Task 2 - Heart Disease Classification using Decision Trees:
-In this task, I worked on a classification problem using the UCI Heart Disease dataset. The goal was to predict whether a patient is likely to have heart disease based on features such as age, sex, blood pressure, cholesterol, etc. I performed data preprocessing, handled missing values, applied one-hot encoding for categorical features, and trained a Decision Tree Classifier. The model was further simplified by pruning to avoid overfitting. Evaluation was done using accuracy, classification report, and confusion matrix.
+### Task 2 - Heart Disease Classification using Decision Trees
 
-python
+# Classification of heart disease risk using the UCI dataset.
+# Includes preprocessing, encoding, training a decision tree, and evaluating the model
+# using accuracy score, classification report, and confusion matrix.
 
-import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 column_names = [
     'age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg',
@@ -91,42 +88,37 @@ tree = DecisionTreeClassifier(max_depth=4, random_state=42)
 tree.fit(X_train, y_train)
 y_pred = tree.predict(X_test)
 
-acc = accuracy_score(y_test, y_pred)
-print("Accuracy:", acc)
+print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
-plt.figure(figsize=(20,10))
+plt.figure(figsize=(20, 10))
 plot_tree(tree, filled=True, feature_names=X.columns, class_names=["No Disease", "Disease"])
 plt.show()
 
 conf = confusion_matrix(y_test, y_pred)
-sns.heatmap(conf, annot=True, fmt="d", cmap="Blues", xticklabels=["No Disease", "Disease"], yticklabels=["No Disease", "Disease"])
+sns.heatmap(conf, annot=True, fmt="d", cmap="Blues",
+            xticklabels=["No Disease", "Disease"],
+            yticklabels=["No Disease", "Disease"])
 plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.title("Confusion Matrix")
 plt.show()
 
 
-Task 3 - Image Classification using Neural Networks (Fashion MNIST) 
+### Task 3 - Image Classification using Neural Networks (Fashion MNIST)
 
- python
- In this task, I built a basic neural network using TensorFlow/Keras to classify images of clothing items from the Fashion MNIST dataset. The dataset consists of grayscale images across 10 fashion categories like shirts, shoes, and bags. The process involved normalizing image data, defining a simple feedforward neural network, compiling with appropriate loss and optimizer, and evaluating model performance through training/testing accuracy and loss curves. This task gave hands-on experience with deep learning basics.
+# This task builds and trains a neural network to classify fashion items from images.
+# Includes preprocessing, model building, training, and performance visualization.
 
- import tensorflow as tf
+import tensorflow as tf
 from tensorflow.keras import layers, models
-import matplotlib.pyplot as plt
- 
+
 fashion_mnist = tf.keras.datasets.fashion_mnist
 (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
- 
+
 X_train = X_train / 255.0
 X_test = X_test / 255.0
 
- 
-class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
-               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
-
- 
 model = models.Sequential([
     layers.Flatten(input_shape=(28, 28)),
     layers.Dense(128, activation='relu'),
@@ -135,17 +127,15 @@ model = models.Sequential([
     layers.Dense(10, activation='softmax')
 ])
 
- 
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
- 
+
 history = model.fit(X_train, y_train, epochs=10, validation_split=0.2)
- 
+
 test_loss, test_acc = model.evaluate(X_test, y_test)
 print("Test accuracy:", test_acc)
 
- 
 plt.figure(figsize=(12, 5))
 plt.subplot(1, 2, 1)
 plt.plot(history.history['accuracy'], label='Train')
@@ -167,16 +157,16 @@ plt.tight_layout()
 plt.show()
 
 
-Task 4 – Improving a Failing Language Model (Transformer):
-In this task, I was given a poorly performing transformer-based language model in a Colab notebook. The model was showing high loss and generating incoherent text. My job was to tune its hyperparameters, adjust training settings, and ensure the loss decreases steadily. I improved model performance by changing the learning rate, batch size, and sequence length, and also optimized the model architecture to make training more stable and results more meaningful.
-This task helped me understand the sensitivity of LLMs to training configuration and how hyperparameter tuning significantly affects performance.
+### Task 4 - Improving a Failing Transformer Language Model
 
-python
+# This task improves a failing transformer-based language model.
+# Adjustments were made to the architecture and hyperparameters to stabilize training
+# and produce more coherent text outputs.
+
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-import random
- 
+
 with open('input.txt', 'r', encoding='utf-8') as f:
     text = f.read()
 
@@ -252,3 +242,4 @@ for iter in range(max_iters):
 context = torch.zeros((1, 1), dtype=torch.long, device=device)
 generated = model.generate(context, max_new_tokens=200)
 print(decode(generated[0].tolist()))
+
