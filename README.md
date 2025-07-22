@@ -110,20 +110,18 @@ Task 3 - Image Classification using Neural Networks (Fashion MNIST)
  import tensorflow as tf
 from tensorflow.keras import layers, models
 import matplotlib.pyplot as plt
-
-# Load the dataset
+ 
 fashion_mnist = tf.keras.datasets.fashion_mnist
 (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
-
-# Normalize pixel values to [0, 1]
+ 
 X_train = X_train / 255.0
 X_test = X_test / 255.0
 
-# Define class names (optional, useful for plotting)
+ 
 class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
                'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
 
-# Build the model
+ 
 model = models.Sequential([
     layers.Flatten(input_shape=(28, 28)),
     layers.Dense(128, activation='relu'),
@@ -132,19 +130,17 @@ model = models.Sequential([
     layers.Dense(10, activation='softmax')
 ])
 
-# Compile the model
+ 
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
-
-# Train the model
+ 
 history = model.fit(X_train, y_train, epochs=10, validation_split=0.2)
-
-# Evaluate the model on test data
+ 
 test_loss, test_acc = model.evaluate(X_test, y_test)
 print("Test accuracy:", test_acc)
 
-# Plot training & validation accuracy/loss
+ 
 plt.figure(figsize=(12, 5))
 plt.subplot(1, 2, 1)
 plt.plot(history.history['accuracy'], label='Train')
